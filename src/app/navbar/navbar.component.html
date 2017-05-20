@@ -1,0 +1,19 @@
+<div class="mdl-layout__header-row">
+      <div *ngIf="!isLoggedIn()">
+          <a routerLink="/login"><button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                Login
+          </button></a>/
+          <a routerLink="/signup"><button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+            Sign up
+          </button>
+          </a>
+          </div>
+          <div *ngIf="isLoggedIn()">
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-white-custom"
+            (click)="logout()">
+                  <i class="material-icons">face</i>
+                </button>
+          </div>
+          <div class="mdl-layout-spacer"></div>
+
+        </div>

@@ -1,0 +1,75 @@
+  <main class="mdl-layout__content mdl-color--grey-100">
+   <div class="mdl-grid demo-content">
+  <header class="mdl-layout__header mdl-color--grey-300 mdl-color-text--primary mdl-cell mdl-cell--12-col mdl-shadow--4dp">
+    <div class="mdl-layout__header-row">
+      <form>
+          <div class="mdl-textfield mdl-js-textfield mdl-auto-complete">
+            <i class="mdl-textfield__icon material-icons">search</i>
+            <input class="mdl-textfield__input" type="text" id="matchname" name="matchname" 
+                  [(ngModel)]="match.name" (keyup)="autoMatches()"/>
+            <label class="mdl-textfield__label" for="matchname">search matches by team name</label>
+          </div>
+          <ul class="auto-list-item mdl-list">
+            <li class="mdl-list__item" *ngFor="let match of filtermatches | async"
+            (click)="selectmatchsuggestion(match)">
+              <span class="mdl-list__item-primary-content">
+               {{ match.team1 }} VS {{ match.team2 }}
+              </span>
+            </li>
+            </ul>
+          </form>
+      <!-- Title -->
+<!--      <span class="mdl-layout-title">Matches</span> -->
+      <!-- Add spacer, to align navigation to the right -->
+      
+      <!-- Navigation. We hide it in small screens. -->
+    </div>
+  </header>
+<table class="mdl-cell mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+  <thead>
+    <tr class="mdl-shadow--2dp">
+      <th class="mdl-data-table__cell--non-numeric">Match</th>
+      <th class="mdl-data-table__cell--non-numeric" 
+      [ngClass]="{'mdl-data-table__header--sorted-ascending' : asc, 'mdl-data-table__header--sorted-descending' : !asc }" (click)="sort('season')">Season</th>
+      <th class="mdl-data-table__cell--non-numeric">Winner</th>
+      <th class="mdl-data-table__cell--non-numeric">Date</th>
+      <th class="mdl-data-table__cell--non-numeric">City</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let match of paggedmatches" (click)="selectmatch(match)">
+      <td class="mdl-data-table__cell--non-numeric">{{match.team1}} VS {{match.team2}}</td>
+      <td class="mdl-data-table__cell--non-numeric">{{match.season}}</td>
+      <td class="mdl-data-table__cell--non-numeric">{{match.winner}}</td>
+      <td class="mdl-data-table__cell--non-numeric">{{match.date | date}}</td>
+      <td class="mdl-data-table__cell--non-numeric">{{match.city}}</td>
+    </tr>
+  </tbody>
+</table>
+
+ <div class="mdl-cell mdl-cell--12-col md-grid mdl-shadow--4dp" *ngIf="pager.pages && pager.pages.length">
+              <button class="mdl-button mdl-js-button  md-cell md-cell--1-col"
+              [disabled]="pager.currentPage == 1"
+               (click)="setPage(1)">
+                First
+              </button>
+              <button class="mdl-button mdl-js-button  md-cell md-cell--1-col" 
+              [disabled]="pager.currentPage == 1"
+               (click)="setPage(pager.currentPage - 1)">
+                Previous
+              </button>
+              <button class="mdl-button mdl-js-button mdl-button--primary md-cell md-cell--1-col" *ngFor="let page of pager.pages" 
+              [disabled]="pager.currentPage == page"(click)="setPage(page)">{{page}}
+              </button>
+              <button class="mdl-button mdl-js-button md-cell md-cell--1-col"
+              [disabled]="pager.currentPage == pager.totalPages" 
+                (click)="setPage(pager.currentPage + 1)">Next
+              </button>
+              <button class="mdl-button mdl-js-button md-cell md-cell--1-col" 
+              [disabled]="pager.currentPage == pager.totalPages"
+                (click)="setPage(pager.totalPages)">Last
+              </button>
+ </div>
+</div>
+</main>
+

@@ -1,0 +1,62 @@
+<div class="mdl-layout mdl-js-layout mdl-color--grey-100">
+	<main class="mdl-layout__content">
+		 <div class="mdl-grid">
+    <div class="mdl-layout-spacer"></div>
+    <div class="mdl-cell mdl-cell--4-col">
+			<div class="mdl-card mdl-shadow--6dp">
+			<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+				<h2 class="mdl-card__title-text">Sign Up</h2>
+			</div>
+	  		<div class="mdl-card__supporting-text">
+				<form  #userForm="ngForm">
+					 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+             <i class="mdl-textfield__icon material-icons">account_circle</i>
+            <input class="mdl-textfield__input" type="text" id="name" name="name" 
+            [(ngModel)]="user.name" />
+            <label class="mdl-textfield__label" for="name">name</label>
+            </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" 
+            [class.is-invalid] = "takenName">
+            <i class="mdl-textfield__icon material-icons">verified_user</i>
+          <input class="mdl-textfield__input"  type="text" id="username" name="username"
+            [(ngModel)]="user.username" />
+          <label class="mdl-textfield__label" for="username">user name</label>
+            <span class="mdl-textfield__error">user name taken please choose another</span>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <i class="mdl-textfield__icon material-icons">email</i>
+            <input class="mdl-textfield__input" type="email" id="email" name="email"
+            [(ngModel)]="user.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
+            <label class="mdl-textfield__label" for="email">email</label>
+             <span class="mdl-textfield__error">enter valid email</span>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <i class="mdl-textfield__icon material-icons">lock</i>
+            <input class="mdl-textfield__input" type="password" id="userpass" 
+            name="password" [(ngModel)]="user.password"/>
+            <label class="mdl-textfield__label" for="userpass">password</label>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" 
+          [class.is-invalid] = "isInvalid">
+            <i class="mdl-textfield__icon material-icons">lock</i>
+            <input class="mdl-textfield__input" type="password" id="passagain" name="passagain"
+            [(ngModel)]="user.passagain" [attr.maxlength]="user.password.length"/>
+            <label class="mdl-textfield__label" for="passagain">confirm password</label>
+             <span class="mdl-textfield__error">password did not match</span>
+          </div>
+				</form>
+			</div>
+			<div class="mdl-card__actions mdl-card--border">
+				<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" 
+				(click)="onSubmit()">Sign up</button>
+			</div>
+			</div>    	
+    </div>
+    <div class="mdl-layout-spacer"></div>
+  	   </div>
+	</main>
+<div [class.overlay]="spin"></div>
+<div *ngIf="spin" class="circle">
+<div class="mdl-spinner mdl-js-spinner" [ngClass]="{'mdl-spinner mdl-js-spinner is-active' : spin }"></div>
+</div>
+</div>
